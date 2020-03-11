@@ -13,7 +13,7 @@
 //console.log(name);
 
 // const add = require('./myModule');
-const notes = require('./notes');
+const notes = require('./notes'); 
 
 // const sum = add(1,2);
 // console.log(sum);
@@ -23,5 +23,7 @@ console.log(note);
 
 //Importing mpm modules
 const validator = require('validator');
+const chalk = require('chalk');
 
 console.log(validator.isEmail('ted@gmail.com'));
+console.log(chalk.bold.green('Changing the console colour'));
