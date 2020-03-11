@@ -12,11 +12,16 @@
 
 //console.log(name);
 
-const add = require('./myModule');
+// const add = require('./myModule');
 const notes = require('./notes');
 
-const sum = add(1,2);
-console.log(sum);
+// const sum = add(1,2);
+// console.log(sum);
 
 const note = notes();
 console.log(note);
+
+//Importing mpm modules
+const validator = require('validator');
+
+console.log(validator.isEmail('ted@gmail.com'));
