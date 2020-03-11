@@ -26,4 +26,4 @@ const validator = require('validator');
 const chalk = require('chalk');
 
 console.log(validator.isEmail('ted@gmail.com'));
-console.log(chalk.bold.green('Changing the console colour'));
+console.log(chalk.bold.green('Changing the console colour to green'));
