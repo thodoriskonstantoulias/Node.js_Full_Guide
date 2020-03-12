@@ -39,8 +39,16 @@ const yargs = require('yargs');
 yargs.command({
     command : 'add',
     describe : 'Add a new note',
-    handler : function(){
-        console.log('add a new note');
+    builder : {
+        title : {
+            describe : 'Note title'
+        },
+        body : {
+            describe : 'Note body'
+        }
+    },
+    handler : function(argv){
+        console.log('Title : ' + argv.title + ' with body : ' + argv.body); 
     }
 });
 yargs.command({
