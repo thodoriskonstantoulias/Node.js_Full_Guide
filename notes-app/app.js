@@ -27,3 +27,6 @@ const chalk = require('chalk');
 
 console.log(validator.isEmail('ted@gmail.com'));
 console.log(chalk.bold.green('Changing the console colour to green'));
+
+//GETTING INPUT FROM USER -- node nameofapp arguments
+console.log(process.argv[2]);
