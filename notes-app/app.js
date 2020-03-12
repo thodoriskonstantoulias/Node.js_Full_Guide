@@ -29,4 +29,40 @@ console.log(validator.isEmail('ted@gmail.com'));
 console.log(chalk.bold.green('Changing the console colour to green'));
 
 //GETTING INPUT FROM USER -- node nameofapp arguments
-console.log(process.argv[2]);
+//console.log(process.argv[2]);
+
+//GETTING INPUT FROM USER using yargs package
+const yargs = require('yargs');
+//console.log(process.argv);
+
+//Create add,remove,list and read commands 
+yargs.command({
+    command : 'add',
+    describe : 'Add a new note',
+    handler : function(){
+        console.log('add a new note');
+    }
+});
+yargs.command({
+    command : 'remove',
+    describe : 'remove a new note',
+    handler : function(){
+        console.log('remove a new note');
+    }
+});
+yargs.command({
+    command : 'list',
+    describe : 'list a new note',
+    handler : function(){
+        console.log('list a new note');
+    }
+});
+yargs.command({
+    command : 'read',
+    describe : 'read a new note',
+    handler : function(){
+        console.log('read a new note');
+    }
+});
+
+console.log(yargs.argv);
