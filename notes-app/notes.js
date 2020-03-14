@@ -36,8 +36,16 @@ const removeNote = function(title){
         console.log(chalk.red.inverse("note could not be deleted"));
     } else {
         fs.writeFileSync('notes.json', JSON.stringify(notesToKeep));
-        console.log(chalk.green.inverse("note deleted"));
+        console.log(chalk.green.inverse("note deleted")); 
     } 
+}
+
+const listNotes = function(){
+    const notes = loadNotes();
+    console.log(chalk.green.inverse('Your notes : '));
+    notes.forEach(function(note){
+        console.log(note.title);
+    });
 }
 
 const loadNotes = function(){
@@ -50,4 +58,4 @@ const loadNotes = function(){
     }
 }
 
-module.exports = {getNotes, addNote, removeNote};
+module.exports = {getNotes, addNote, removeNote, listNotes};
