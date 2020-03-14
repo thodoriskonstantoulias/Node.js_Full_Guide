@@ -18,8 +18,8 @@ const notes = require('./notes');
 // const sum = add(1,2);
 // console.log(sum);
 
-const note = notes();
-console.log(note);
+// const note = notes();
+// console.log(note);
 
 //Importing mpm modules
 const validator = require('validator');
@@ -48,7 +48,8 @@ yargs.command({
         }
     },
     handler : function(argv){
-        console.log('Title : ' + argv.title + ' with body : ' + argv.body); 
+        //console.log('Title : ' + argv.title + ' with body : ' + argv.body); 
+        notes.addNote(argv.title, argv.body);
     }
 });
 yargs.command({
