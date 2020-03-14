@@ -48,6 +48,19 @@ const listNotes = function(){
     });
 }
 
+const readNotes = function(title){
+    const notes = loadNotes();
+    const foundTitle = notes.find(function(note){
+        return note.title === title;
+    });
+
+    if (foundTitle){
+        console.log(chalk.green.inverse("note found with title " + title)); 
+    } else {
+        console.log(chalk.red.inverse("note not found")); 
+    }
+}
+
 const loadNotes = function(){
     try {
         const data = fs.readFileSync('notes.json');
@@ -58,4 +71,4 @@ const loadNotes = function(){
     }
 }
 
-module.exports = {getNotes, addNote, removeNote, listNotes};
+module.exports = {getNotes, addNote, removeNote, listNotes, readNotes};
