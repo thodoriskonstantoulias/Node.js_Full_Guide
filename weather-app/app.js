@@ -29,7 +29,12 @@ const request = require('request');
 
 //REFACTORING USING CALLBACKS
 const geoLocation = require('./utils/geocode');
+const forecast = require('./utils/forecast');
 
 geoLocation('Philadelphia',(error,data) =>{
+    console.log(data);
+});
+
+forecast(40.0115,-75.1327,(error,data) =>{
     console.log(data);
 });
