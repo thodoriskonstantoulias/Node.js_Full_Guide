@@ -31,10 +31,35 @@ const request = require('request');
 const geoLocation = require('./utils/geocode');
 const forecast = require('./utils/forecast');
 
-geoLocation('Philadelphia',(error,data) =>{
-    console.log(data);
-});
+// geoLocation('Philadelphia',(error,data) =>{
+//     console.log(data);
+// });
 
-forecast(40.0115,-75.1327,(error,data) =>{
-    console.log(data);
-});
+// forecast(40.0115,-75.1327,(error,data) =>{
+//     console.log(data);
+// });
+
+//CHAINING OUR CALLBACKS
+
+// We have to take the city name from the user as input
+const address = process.argv[2];
+if (!address){
+    console.log("Please enter an address");
+} else {
+    geoLocation(address, (error,data) =>{
+        if (error){
+            return console.log(error);
+        }
+    
+        forecast(data.latitude,data.longitude,(error,data2) =>{
+            if (error){
+                return console.log(error);
+            }
+    
+            console.log(data.location);
+            console.log("The temperature is " + data2.temperature);
+        });
+    });
+}
+
+
