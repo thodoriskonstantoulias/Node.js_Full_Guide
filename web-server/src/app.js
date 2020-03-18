@@ -40,7 +40,14 @@ app.get('/weather', (req,res) => {
     res.send('Weather page');
 });
 
+//404 page 
+app.get('*', (req,res) => {
+    res.render('error', {
+        message : 'Error 404 : Not found'
+    });
+});
+
 //Listen to port
-app.listen(3000, () => {
+app.listen(3000, () => { 
     console.log('Server is up');
 });
