@@ -5,22 +5,32 @@ const path = require('path');
 
 const app = express();
 
+//Using hbs for dynamic pages
+app.set('view engine', 'hbs');
+
 //How to serve static files 
 app.use(express.static(path.join(__dirname, '../public')));
 
 //Home page route
+//Render the hbs (dynamic) page
 app.get('/', (req,res) => {
-    res.send('Hello express!!!');
+    res.render('index', {
+        title:'Test title'
+    });
 });
 
 //Help page 
 app.get('/help', (req,res) => {
-    res.send('Help page');
+    res.render('help', {
+        message : 'This a help paragraph'
+    });
 });
 
 //About page 
 app.get('/about', (req,res) => {
-    res.send('About page');
+    res.render('about',{
+        title : 'Dynamic about page test' 
+    });
 });
 
 //Weather page 
