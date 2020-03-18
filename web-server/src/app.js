@@ -1,12 +1,13 @@
 const express = require('express');
-
-//How to serve static files 
 const path = require('path');
+const hbs = require('hbs');
 
 const app = express();
 
 //Using hbs for dynamic pages
 app.set('view engine', 'hbs');
+//Rerister partials
+hbs.registerPartials(path.join(__dirname, './partials'));
 
 //How to serve static files 
 app.use(express.static(path.join(__dirname, '../public')));
@@ -22,6 +23,7 @@ app.get('/', (req,res) => {
 //Help page 
 app.get('/help', (req,res) => {
     res.render('help', {
+        title : 'Help title',
         message : 'This a help paragraph'
     });
 });
