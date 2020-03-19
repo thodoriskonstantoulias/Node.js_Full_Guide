@@ -2,6 +2,10 @@ const express = require('express');
 const path = require('path');
 const hbs = require('hbs');
 
+//Load our APIs
+const geocode = require('./utils/geocode');
+const forecast = require('./utils/forecast');
+
 const app = express();
 
 //Using hbs for dynamic pages
@@ -44,11 +48,29 @@ app.get('/weather', (req,res) => {
         });
     }
 
-    res.send({
-        forecast : 'It is snowing',
-        location : 'Philly',
-        address : req.query.address
+    //We must call our 2 external APIs to get the required data 
+    geocode(req.query.address, (error, location) => {
+        if (error){
+            return res.send({
+                error : 'A system error occured'
+            });
+        } 
+
+        forecast(location.latitude, location.longitude, (error,forecast) => {
+            if (error){
+                return res.send({
+                    error : 'A system error occured'
+                });
+            } 
+
+            res.send({
+                forecast : forecast.summary,
+                temperature : forecast.temperature,
+                location : location.location 
+            });
+        });
     });
+
 });
 
 //Product page with query parameters
