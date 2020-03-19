@@ -37,7 +37,30 @@ app.get('/about', (req,res) => {
 
 //Weather page 
 app.get('/weather', (req,res) => {
-    res.send('Weather page');
+
+    if (!req.query.address){
+        return res.send({
+            error : 'You must provide an address from the route'
+        });
+    }
+
+    res.send({
+        forecast : 'It is snowing',
+        location : 'Philly',
+        address : req.query.address
+    });
+});
+
+//Product page with query parameters
+app.get('/products', (req,res) => {
+
+    if (!req.query.search){
+        return res.send({ //we return here because we want to stop  
+            error: 'You must provide a search parameter'
+        })
+    }
+
+    res.send({products:[]});
 });
 
 //404 page 
