@@ -52,14 +52,14 @@ app.get('/weather', (req,res) => {
     geocode(req.query.address, (error, location) => {
         if (error){
             return res.send({
-                error : 'A system error occured'
+                error : 'A system error occured in geolocation'
             });
         } 
 
         forecast(location.latitude, location.longitude, (error,forecast) => {
             if (error){
                 return res.send({
-                    error : 'A system error occured'
+                    error : 'A system error occured in forecast'
                 });
             } 
 
