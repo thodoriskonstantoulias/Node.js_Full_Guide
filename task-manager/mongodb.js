@@ -2,9 +2,14 @@
 
 const mongodb = require('mongodb');
 const mongoClient = mongodb.MongoClient;
+const ObjectID = mongodb.ObjectID;
 
 const connectionUrl = 'mongodb://localhost:27017';
 const databaseName = 'task-manager';
+
+//Using object Id 
+const id = new ObjectID();
+console.log(id.getTimestamp());
 
 mongoClient.connect(connectionUrl, {useNewUrlParser: true, useUnifiedTopology: true}, (error, client) => {
     if (error){
@@ -25,19 +30,19 @@ mongoClient.connect(connectionUrl, {useNewUrlParser: true, useUnifiedTopology: t
     // });
 
     //Insert many documents
-    db.collection('users').insertMany([
-        {
-            name : 'Kostas',
-            age: 36
-        },
-        {
-            name : 'Mary',
-            age: 40
-        }
-    ],(error, result) => {
-        if (error){
-             return console.log('Unable to insert to database');
-            }
-        console.log(result.ops);
-    })
+    // db.collection('users').insertMany([
+    //     {
+    //         name : 'Kostas',
+    //         age: 36
+    //     },
+    //     {
+    //         name : 'Mary',
+    //         age: 40
+    //     }
+    // ],(error, result) => {
+    //     if (error){
+    //          return console.log('Unable to insert to database');
+    //         }
+    //     console.log(result.ops);
+    // })
 });
