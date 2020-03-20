@@ -12,8 +12,32 @@ mongoClient.connect(connectionUrl, {useNewUrlParser: true, useUnifiedTopology: t
     }
 
     const db = client.db(databaseName);
-    db.collection('users').insertOne({
-        name : 'Ted',
-        age : 29
-    });
+
+    //Insert one document
+    // db.collection('users').insertOne({
+    //     name : 'Ted',
+    //     age : 29
+    // },(error, result) => {
+    //     if (error){
+    //         return console.log('Unable to insert to database');
+    //     }
+    //     console.log(result.ops);
+    // });
+
+    //Insert many documents
+    db.collection('users').insertMany([
+        {
+            name : 'Kostas',
+            age: 36
+        },
+        {
+            name : 'Mary',
+            age: 40
+        }
+    ],(error, result) => {
+        if (error){
+             return console.log('Unable to insert to database');
+            }
+        console.log(result.ops);
+    })
 });
