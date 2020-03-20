@@ -8,8 +8,11 @@ const forecast = require('./utils/forecast');
 
 const app = express();
 
+const port = process.env.PORT || 3000;
+
 //Using hbs for dynamic pages
 app.set('view engine', 'hbs');
+
 //Rerister partials
 hbs.registerPartials(path.join(__dirname, './partials'));
 
@@ -93,6 +96,6 @@ app.get('*', (req,res) => {
 });
 
 //Listen to port
-app.listen(3000, () => { 
-    console.log('Server is up');
+app.listen(port, () => { 
+    console.log('Server is up on port ' + port);
 });
