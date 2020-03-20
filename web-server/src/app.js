@@ -12,6 +12,7 @@ const port = process.env.PORT || 3000;
 
 //Using hbs for dynamic pages
 app.set('view engine', 'hbs');
+app.set('views', __dirname + '/views');
 
 //Rerister partials
 hbs.registerPartials(path.join(__dirname, './partials'));
