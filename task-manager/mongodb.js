@@ -47,17 +47,17 @@ mongoClient.connect(connectionUrl, {useNewUrlParser: true, useUnifiedTopology: t
     // })
 
     //Fetching data - one 
-    db.collection('users').findOne({name:'Kostas'}, (error, user) => {
-        if (error){
-            return console.log('Unable to fetch user');
-        }
-        console.log(user);
-    });
+    // db.collection('users').findOne({name:'Kostas'}, (error, user) => {
+    //     if (error){
+    //         return console.log('Unable to fetch user');
+    //     }
+    //     console.log(user);
+    // });
 
     //Fetching data - many 
-    db.collection('users').find({name:'Ted'}).toArray((error, users) => {
-        console.log(users);
-    });
+    // db.collection('users').find({name:'Ted'}).toArray((error, users) => {
+    //     console.log(users);
+    // });
 
     //Updating documents -- with Promises instead of callbacks
     // const updatePromise = db.collection('users').updateOne({_id : new ObjectID('5e75287755be3c11a0926698') }, 
@@ -74,18 +74,25 @@ mongoClient.connect(connectionUrl, {useNewUrlParser: true, useUnifiedTopology: t
     //     console.log(error);
     // });
 
-    const updatePromises = db.collection('users').updateMany({name: 'Ted'},
-    {
-        $set : {
-            name : 'Ted3'
-        }
-    });
+    // const updatePromises = db.collection('users').updateMany({name: 'Ted'},
+    // {
+    //     $set : {
+    //         name : 'Ted3'
+    //     }
+    // });
 
-    updatePromises.then((result) => {
-        console.log(result);
-        console.log('Updated many');
-    }).catch((error) => {
-        console.log(error);
-    });
+    // updatePromises.then((result) => {
+    //     console.log(result);
+    //     console.log('Updated many');
+    // }).catch((error) => {
+    //     console.log(error);
+    // });
 
+    //Deleting documents
+    db.collection('users').deleteOne({name:'Kostas'})  //deleteMany is similar
+      .then((result) => {
+          console.log('Deleted');
+      }).catch((error) => {
+          console.log(error);
+      })
 });
