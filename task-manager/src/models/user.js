@@ -19,6 +19,7 @@ const userSchema = new mongoose.Schema({
     },
     email : {
         type:String,
+        unique: true,
         required: true,
         lowercase : true,
         validate(value) {
@@ -39,6 +40,21 @@ const userSchema = new mongoose.Schema({
         }
     }
 });
+
+userSchema.statics.findByCredentials = async (email,password) => {
+    //Find user by email and then confirm the password
+    const user = await User.findOne({email: email})
+    if(!user) {
+        throw new Error('Wrong email provided');
+    }
+
+    const isMatch = await bcrypt.compare(password, user.password);
+    if (!isMatch) {
+        throw new Error('Password does not match');
+    }
+
+    return user;
+};
 
 //Create our middleware to run when we save a document-- here to hash the passwords
 userSchema.pre('save', async function(next) {
