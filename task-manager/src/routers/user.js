@@ -39,6 +39,20 @@ router.post('/users/login', async (req,res) => {
     }
 });
 
+//Logout functionality
+router.post('/users/logout', auth, async (req,res) => {
+    try {
+        //Delete the token from the user
+        req.user.tokens = req.user.tokens.filter((token) => {
+            return token.token !== req.token;
+        });
+        await req.user.save();
+        res.send();
+    } catch (error) {
+        res.status(500).send();
+    }
+});
+
 //We will add authentication to the following routes
 //Also we change the route so user can see only his info and not others
 router.get('/users/me', auth, async (req,res) => {
