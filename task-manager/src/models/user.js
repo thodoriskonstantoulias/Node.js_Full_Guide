@@ -48,6 +48,13 @@ const userSchema = new mongoose.Schema({
     }]
 });
 
+//Create a virtual record to associate users with tasks
+userSchema.virtual('tasks', {
+    ref: 'Task',
+    localField : '_id',
+    foreignField : 'owner'
+});
+
 userSchema.methods.getPublicProfile = function() {
     const user = this;
     const userObject = user.toObject();
