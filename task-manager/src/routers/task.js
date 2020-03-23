@@ -15,7 +15,7 @@ router.post('/tasks', auth, async (req,res) => {
         description : req.body.description,
         completed : req.body.completed,
         owner : req.user._id
-    });
+    }); 
     //Same functionality using async-await
     try {
         await task.save();
@@ -28,7 +28,14 @@ router.post('/tasks', auth, async (req,res) => {
 router.get('/tasks',auth, async (req,res) => {
     //Same functionality using async-await
     try {
-        const tasks = await Task.find({owner : req.user._id});
+        //Filtering through wuery parameters 
+        const completedFlag = req.query.completed;
+        let tasks;
+        if (completedFlag) {
+            tasks = await Task.find({owner : req.user._id, completed : completedFlag});
+        } else {
+            tasks = await Task.find({owner : req.user._id});
+        }     
         //Alternative way to get the tasks of the user -- execute 
         //await req.user.populate('tasks').execPopulate();
 
