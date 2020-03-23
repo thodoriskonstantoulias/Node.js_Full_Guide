@@ -30,12 +30,22 @@ router.get('/tasks',auth, async (req,res) => {
     try {
         //Filtering through query parameters
         //Pagination with limit and skip 
+        //Sorting with sort
         const completedFlag = req.query.completed;
         let tasks;
+        let recordName, ascOrDesc;
+        const sort = req.query.sortBy;
+        if (sort){
+            const parts = req.query.sortBy.split(':'); //query like sortBy=...:asc
+            recordName = parts[0];
+            ascOrDesc = parts[1] === 'asc' ? 1 : -1; 
+            console.log(recordName,ascOrDesc);
+        }
+
         if (completedFlag) {
-            tasks = await Task.find({owner : req.user._id, completed : completedFlag}, null, {limit : parseInt(req.query.limit), skip : parseInt(req.query.skip)});
+            tasks = await Task.find({owner : req.user._id, completed : completedFlag}, null, {limit : parseInt(req.query.limit), skip : parseInt(req.query.skip), sort : {recordName : ascOrDesc}});
         } else {
-            tasks = await Task.find({owner : req.user._id}, null, {limit : parseInt(req.query.limit), skip : parseInt(req.query.skip)});
+            tasks = await Task.find({owner : req.user._id}, null, {limit : parseInt(req.query.limit), skip : parseInt(req.query.skip), sort : {recordName : ascOrDesc}});
         }     
         //Alternative way to get the tasks of the user -- execute 
         //await req.user.populate('tasks').execPopulate();
