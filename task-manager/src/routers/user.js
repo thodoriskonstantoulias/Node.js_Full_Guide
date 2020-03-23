@@ -2,6 +2,9 @@
 const express = require('express');
 const router = new express.Router();
 
+//Import our auth service 
+const auth = require('../middleware/auth');
+
 //Get our models
 const User = require('../models/user');
 
@@ -36,7 +39,18 @@ router.post('/users/login', async (req,res) => {
     }
 });
 
-router.get('/users',async (req,res) => {
+//We will add authentication to the following routes
+//Also we change the route so user can see only his info and not others
+router.get('/users/me', auth, async (req,res) => {
+    try {
+        res.send(req.user);
+    } catch (error) {
+        res.status(500).send();
+    }
+     
+});
+
+router.get('/users', auth, async (req,res) => {
     //Same functionality using async-await
     try{
         const users = await User.find({});
