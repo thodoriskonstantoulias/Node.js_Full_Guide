@@ -28,13 +28,14 @@ router.post('/tasks', auth, async (req,res) => {
 router.get('/tasks',auth, async (req,res) => {
     //Same functionality using async-await
     try {
-        //Filtering through wuery parameters 
+        //Filtering through query parameters
+        //Pagination with limit and skip 
         const completedFlag = req.query.completed;
         let tasks;
         if (completedFlag) {
-            tasks = await Task.find({owner : req.user._id, completed : completedFlag});
+            tasks = await Task.find({owner : req.user._id, completed : completedFlag}, null, {limit : parseInt(req.query.limit), skip : parseInt(req.query.skip)});
         } else {
-            tasks = await Task.find({owner : req.user._id});
+            tasks = await Task.find({owner : req.user._id}, null, {limit : parseInt(req.query.limit), skip : parseInt(req.query.skip)});
         }     
         //Alternative way to get the tasks of the user -- execute 
         //await req.user.populate('tasks').execPopulate();
