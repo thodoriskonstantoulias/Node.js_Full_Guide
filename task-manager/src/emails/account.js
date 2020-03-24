@@ -6,10 +6,20 @@ const sendgridApiKey = 'SG.hGE2CAzOSbaWy4Bzhmp-pg._NGVWOBzF22BjdgbhkHkr4Apnt7sbH
 
 sgMail.setApiKey(sendgridApiKey);
 
-sgMail.send({
-    to : 'xxx@yahoo.com',
-    from : 'xxx@yahoo.com',
-    subject : 'This is my first mail using Node',
-    text : 'First mail lets see if this works'
-});
+// sgMail.send({
+//     to : 'xxx@yahoo.com',
+//     from : 'xxx@yahoo.com',
+//     subject : 'This is my first mail using Node',
+//     text : 'First mail lets see if this works'
+// });
 
+const sendWelcomeEmail = (email, name) => {
+    sgMail.send({
+        to : email,
+        from : 'xxx@yahoo.com',
+        subject : 'This is my first mail using Node',
+        text : `First mail lets see if this works ${name}`
+    });
+};
+
+module.exports = {sendWelcomeEmail};

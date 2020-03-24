@@ -10,6 +10,9 @@ const multer = require('multer');
 //Get our models
 const User = require('../models/user');
 
+//Get the mail module 
+const {sendWelcomeEmail} = require('../emails/account');
+
 //Users document
 router.post('/users', async (req,res) => {
     const user = new User(req.body);
@@ -17,6 +20,9 @@ router.post('/users', async (req,res) => {
     //Same functionality using async-await
     try {
         await user.save();
+        //Send welcome email
+        //sendWelcomeEmail(user.email, user.name);
+
         const token = await user.generateAuthToken();
         res.status(201).send({user, token});
     } catch(e) {
