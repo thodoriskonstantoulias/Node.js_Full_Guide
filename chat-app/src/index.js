@@ -16,18 +16,19 @@ const port = process.env.PORT || 3000;
 app.use(express.static(path.join(__dirname, '../public')));
 
 //Test socket - change in client too to work
-let count = 0;
 
 io.on('connection', (socket) => {
     console.log('New Web socket connection');
+
     //Send from server - emit
-    socket.emit('countUpdated', count);
+
+    socket.emit('message', 'Welcome All');
+
     //Receive from client - on
-    socket.on('increment', () => {
-        count++;
-        //socket.emit('countUpdated', count); //With this only the specific connection gets notified
-        io.emit('countUpdated', count);  //With io we update every client that is connected to server
-    });
+
+    socket.on('sendMessage', (message) => {
+        io.emit('message', message);
+    }); 
 });
 
 server.listen(port, () => {
