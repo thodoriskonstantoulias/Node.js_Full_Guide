@@ -24,11 +24,19 @@ io.on('connection', (socket) => {
 
     socket.emit('message', 'Welcome All');
 
+    //Brodcast - Send to all clients except for the current one 
+    socket.broadcast.emit('message', 'A new user has joined!');
+
     //Receive from client - on
 
     socket.on('sendMessage', (message) => {
         io.emit('message', message);
     }); 
+
+    //Send message when someone disconnects
+    socket.on('disconnect', () => {
+        io.emit('message', 'A user disconnected');
+    });
 });
 
 server.listen(port, () => {
