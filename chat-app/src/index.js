@@ -1,13 +1,25 @@
 //Here we will create our real time chat app
 const express = require('express');
+const http = require('http');
 const path = require('path');
 
+//Load library responsible for web socket 
+const socketio = require('socket.io');
+
 const app = express();
+const server = http.createServer(app);
+const io = socketio(server);
+
 const port = process.env.PORT || 3000;
 
 //How to serve static files 
 app.use(express.static(path.join(__dirname, '../public')));
 
-app.listen(port, () => {
+//Test socket - change in client too to work
+io.on('connection', () => {
+    console.log('New Web socket connection');
+});
+
+server.listen(port, () => {
     console.log('Listening to port ' + port);
 }); 
