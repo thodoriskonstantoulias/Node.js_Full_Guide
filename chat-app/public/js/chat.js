@@ -7,6 +7,7 @@ const btnSubEl = document.querySelector('#submitBtn');
 const messages = document.querySelector('#messages');
 
 const messagesTemp = document.querySelector('#manage-template').innerHTML;
+const locationTemp = document.querySelector('#location-template').innerHTML;
 
 //Receiving from server to client
 
@@ -15,6 +16,12 @@ socket.on('message', (message) => {
 
     //Render messages to screen
     const html = Mustache.render(messagesTemp, {message});
+    messages.insertAdjacentHTML('beforeend', html);
+});
+
+socket.on('locationMessage', (location) => {
+    console.log(location);  
+    const html = Mustache.render(locationTemp, {location});
     messages.insertAdjacentHTML('beforeend', html);
 });
 
