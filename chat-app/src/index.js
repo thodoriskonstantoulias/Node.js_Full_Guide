@@ -29,14 +29,16 @@ io.on('connection', (socket) => {
 
     //Receive from client - on
 
-    socket.on('sendMessage', (message) => {
+    socket.on('sendMessage', (message, callback) => {
         io.emit('message', message);
+        callback();
     }); 
 
     //Receive location from client
-    socket.on('sendLocation', (coords) => {
+    socket.on('sendLocation', (coords, callback) => {
         const location = 'https://google.com/maps?q=' + coords.latitude + ',' + coords.longitude;
         io.emit('message', location);
+        callback();
     }); 
 
     //Send message when someone disconnects
