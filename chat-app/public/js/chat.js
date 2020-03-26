@@ -9,6 +9,9 @@ const messages = document.querySelector('#messages');
 const messagesTemp = document.querySelector('#manage-template').innerHTML;
 const locationTemp = document.querySelector('#location-template').innerHTML;
 
+//Query strings from url
+const queryObj = Qs.parse(location.search, {ignoreQueryPrefix : true});
+
 //Receiving from server to client
 
 socket.on('message', (message) => {
@@ -57,3 +60,5 @@ btnLocEl.addEventListener('click', () => {
         });
     });
 });
+
+socket.emit('join', queryObj);

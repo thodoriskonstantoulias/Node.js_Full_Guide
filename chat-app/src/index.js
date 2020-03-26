@@ -24,12 +24,19 @@ io.on('connection', (socket) => {
 
     //Send from server - emit
 
-    socket.emit('message', messageObj.generateMessage('Welcome'));
+    //socket.emit('message', messageObj.generateMessage('Welcome'));
 
     //Brodcast - Send to all clients except for the current one 
-    socket.broadcast.emit('message', messageObj.generateMessage('A new user has joined!'));
+    //socket.broadcast.emit('message', messageObj.generateMessage('A new user has joined!'));
 
     //Receive from client - on
+
+    socket.on('join', (queryObj) => {
+        socket.join(queryObj.room);
+        //Instead emmiting at welcome we emit here in specific room
+        socket.emit('message', messageObj.generateMessage('Welcome'));
+        socket.broadcast.to(queryObj.room).emit('message', messageObj.generateMessage(`${queryObj.username} has joined the room`));
+    });
 
     socket.on('sendMessage', (message, callback) => {
         io.emit('message', messageObj.generateMessage(message));
