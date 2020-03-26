@@ -3,6 +3,8 @@ const express = require('express');
 const http = require('http');
 const path = require('path');
 
+const messageObj = require('./utils/messages');
+
 //Load library responsible for web socket 
 const socketio = require('socket.io');
 
@@ -22,15 +24,15 @@ io.on('connection', (socket) => {
 
     //Send from server - emit
 
-    socket.emit('message', 'Welcome All');
+    socket.emit('message', messageObj.generateMessage('Welcome'));
 
     //Brodcast - Send to all clients except for the current one 
-    socket.broadcast.emit('message', 'A new user has joined!');
+    socket.broadcast.emit('message', messageObj.generateMessage('A new user has joined!'));
 
     //Receive from client - on
 
     socket.on('sendMessage', (message, callback) => {
-        io.emit('message', message);
+        io.emit('message', messageObj.generateMessage(message));
         callback();
     }); 
 
@@ -43,7 +45,7 @@ io.on('connection', (socket) => {
 
     //Send message when someone disconnects
     socket.on('disconnect', () => {
-        io.emit('message', 'A user disconnected');
+        io.emit('message', messageObj.generateMessage('A user disconnected'));
     });
 });
 
