@@ -33,6 +33,12 @@ io.on('connection', (socket) => {
         io.emit('message', message);
     }); 
 
+    //Receive location from client
+    socket.on('sendLocation', (coords) => {
+        const location = 'https://google.com/maps?q=' + coords.latitude + ',' + coords.longitude;
+        io.emit('message', location);
+    }); 
+
     //Send message when someone disconnects
     socket.on('disconnect', () => {
         io.emit('message', 'A user disconnected');
