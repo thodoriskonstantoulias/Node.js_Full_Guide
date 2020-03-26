@@ -4,11 +4,18 @@ const formEl = document.querySelector('form');
 const inputEl = document.querySelector('#messageText');
 const btnLocEl = document.querySelector('#locationBtn');
 const btnSubEl = document.querySelector('#submitBtn');
+const messages = document.querySelector('#messages');
+
+const messagesTemp = document.querySelector('#manage-template').innerHTML;
 
 //Receiving from server to client
 
 socket.on('message', (message) => {
-    console.log(message);
+    console.log(message);  
+
+    //Render messages to screen
+    const html = Mustache.render(messagesTemp, {message});
+    messages.insertAdjacentHTML('beforeend', html);
 });
 
 //Sending from client to server
